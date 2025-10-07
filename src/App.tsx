@@ -1,32 +1,27 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import "./App.css";
+import "./index.css";
 import Header from "./components/header/header";
-import Banner from "./components/banner/banner";
-import BannerInfo from "./components/bannerInfo/bannerInfo";
-import Cards from "./components/cards/cards";
-import Privacy from "./components/privacy/privacy";
-// import Companys from "./components/companys/companys";
+
+import { Routes, Route } from "react-router-dom";
 import Footer from "./components/footer/footer";
-import FooterBanner from "./components/footerBanner/footerBanner";
-import FAQ from "./components/faq/faq";
+import Catalog from "./components/catalog/catalog";
+import Order from "./components/order/order";
 
 function App() {
   const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <div>
+    <div className="text-[#5f6368] bg-[#f7f7f7]">
+      <QueryClientProvider client={queryClient}>
         <Header />
-        <Banner />
-        <BannerInfo />
-        <Cards />
-        <Privacy />
-        {/* <Companys /> */}
-        <FAQ />
-        <FooterBanner />
+        <Routes>
+          <Route path="/" element={<Catalog />} />
+          <Route path="/order" element={<Order />} />
+        </Routes>
+
         <Footer />
-      </div>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </div>
   );
 }
 
