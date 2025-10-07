@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
-export default function Order() {
+export default function GetStartInfo() {
   const [companyName, setCompanyName] = useState("");
   const [employeeCount, setEmployeeCount] = useState("");
   const [region, setRegion] = useState("Brasil");

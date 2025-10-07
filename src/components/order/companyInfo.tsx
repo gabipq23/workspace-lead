@@ -3,7 +3,7 @@ import { Button, Input, Tooltip } from "antd";
 import { ChevronLeft, CircleQuestionMark } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function OrderCompany() {
+export default function CompanyInfo() {
   const [dominio, setDominio] = useState("");
   const [nomeEmpresa, setNomeEmpresa] = useState("");
   const [cnpj, setCnpj] = useState("");
@@ -93,7 +93,7 @@ export default function OrderCompany() {
             type="primary"
             size="large"
             disabled={!dominio || !nomeEmpresa || !cnpj}
-            onClick={() => handleSubmit()}
+            onClick={() => (navigate("/order-finish"), handleSubmit())}
           >
             Avançar
           </Button>

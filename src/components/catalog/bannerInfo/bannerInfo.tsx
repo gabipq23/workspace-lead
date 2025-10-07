@@ -1,6 +1,6 @@
 function BannerInfo() {
   return (
-    <div className="flex flex-col gap-4 bg-[#f7f7f7] items-center justify-around text-center px-10 md:px-46 md:justify-center w-full py-4 md:py-12">
+    <div className="flex flex-col gap-4 bg-[#f7f7f7] items-center justify-around text-center px-10 md:px-46 md:justify-center w-full py-4 md:py-12 md:pb-0">
       <p
         style={{ fontWeight: "bold", lineHeight: "1.3", margin: 0 }}
         className="text-[26px] md:text-[44px] text-[#202124]"
@@ -18,7 +18,7 @@ function BannerInfo() {
       >
         O Google Workspace inclui:
       </p>
-      <div className="flex flex-wrap items-center justify-center gap-12 md:gap-8 py-6">
+      <div className="flex flex-wrap items-center justify-center gap-12 md:gap-8 pt-6 ">
         <span className="flex flex-col gap-1 items-center justify-center">
           <img
             src="/icone-google (14).svg"

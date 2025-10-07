@@ -10,7 +10,15 @@ function Header() {
             alt="Home"
           />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4 ">
+          <img
+            src="/Vivo-Empresas.png"
+            className="h-5 md:h-8 hover:cursor-pointer"
+            alt="Vivo Empresas"
+          />
+
+          <div className="h-4 md:h-6 border-l border-gray-400"></div>
+
           <a
             href="https://www.goldempresas.com.br/"
             target="_blank"
@@ -18,18 +26,10 @@ function Header() {
           >
             <img
               src="/Gold-Logo.png"
-              className="h-5 md:h-9"
+              className="h-5 md:h-10"
               alt="Gold Empresas"
             />
           </a>
-          <span className="text-neutral-400 text-[20px] md:text-[24px] font-light">
-            |
-          </span>
-          <img
-            src="/Vivo-Empresas.png"
-            className="h-5 md:h-8 hover:cursor-pointer"
-            alt="Vivo Empresas"
-          />
         </div>
       </header>
     </div>

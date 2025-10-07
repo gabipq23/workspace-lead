@@ -34,7 +34,7 @@ function Banner() {
             color="blue"
             variant="solid"
             size="large"
-            onClick={() => navigate("/order")}
+            onClick={() => navigate("/order-choose-plan")}
           >
             Iniciar agora
           </Button>

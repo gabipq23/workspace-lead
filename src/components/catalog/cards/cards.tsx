@@ -344,9 +344,9 @@ export default function Cards() {
 
   return (
     <>
-      <div className="flex flex-col gap-8 text-[#5f6368] bg-[#f7f7f7] items-start justify-around text-center px-20 md:justify-center w-full py-20">
+      <div className="flex flex-col gap-8 text-[#5f6368] bg-[#f7f7f7] items-center justify-around text-center px-20 md:justify-center w-full py-6">
         <div className="flex flex-col md:flex-row lg:flex-row ">
-          {/* MOBILE: Carousel com dots selecionáveis */}
+          {/* MOBILE: Carousel  */}
           <div className="flex md:hidden w-full justify-center py-8 pb-16 min-h-[1250px]">
             <Carousel
               className="w-full max-w-[320px] custom-carousel"
@@ -367,8 +367,8 @@ export default function Cards() {
             </Carousel>
           </div>
 
-          {/* DESKTOP: Cards lado a lado como estava antes */}
-          <div className="hidden md:flex flex-row gap-4 justify-center w-full">
+          {/* DESKTOP: Cards */}
+          <div className="hidden md:flex flex-row gap-4 justify-center w-full ">
             <StarterCard />
             <StandardCard />
           </div>

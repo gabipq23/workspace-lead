@@ -3,7 +3,7 @@ import { Button, Input, Tooltip } from "antd";
 import { ChevronLeft, CircleQuestionMark } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function OrderContact() {
+export default function ContactInfo() {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [email, setEmail] = useState("");

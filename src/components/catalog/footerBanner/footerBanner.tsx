@@ -19,7 +19,7 @@ export default function FooterBanner() {
         </h2>
         <div>
           <Button
-            onClick={() => navigate("/order")}
+            onClick={() => navigate("/order-choose-plan")}
             type="primary"
             size="large"
             className="bg-[#1a73e8] hover:bg-[#1557b0] border-none px-8 py-2 h-12 text-[16px] font-medium rounded"
