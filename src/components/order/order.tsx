@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Input, Radio, Select } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -7,7 +8,7 @@ export default function Order() {
   const [companyName, setCompanyName] = useState("");
   const [employeeCount, setEmployeeCount] = useState("");
   const [region, setRegion] = useState("Brasil");
-
+  const navigate = useNavigate();
   const handleSubmit = () => {
     console.log({
       companyName,
@@ -17,7 +18,7 @@ export default function Order() {
   };
 
   return (
-    <div className="bg-[#f7f7f7] flex items-center justify-center px-4">
+    <div className="bg-[#f7f7f7] flex items-center justify-center px-4 h-[calc(100vh-157px)]">
       <div className="flex items-center justify-center ">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div className=" p-7 max-w-md w-full mx-auto lg:mx-0">
@@ -86,8 +87,8 @@ export default function Order() {
             <Button
               type="primary"
               size="large"
-              onClick={handleSubmit}
               disabled={!companyName || !employeeCount || !region}
+              onClick={() => (navigate("/order-contact"), handleSubmit())}
             >
               Avançar
             </Button>

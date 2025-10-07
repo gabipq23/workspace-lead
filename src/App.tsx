@@ -7,6 +7,8 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./components/footer/footer";
 import Catalog from "./components/catalog/catalog";
 import Order from "./components/order/order";
+import OrderContact from "./components/order/orderContact";
+import OrderCompany from "./components/order/orderCompany";
 
 function App() {
   const queryClient = new QueryClient();
@@ -17,6 +19,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Catalog />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/order-contact" element={<OrderContact />} />
+          <Route path="/order-company" element={<OrderCompany />} />
         </Routes>
 
         <Footer />
