@@ -48,7 +48,7 @@ export default function Cards() {
             color="blue"
             variant="outlined"
             size="large"
-            onClick={() => navigate("/order")}
+            onClick={() => (navigate("/order"), window.scrollTo(0, 0))}
           >
             Iniciar agora
           </Button>
@@ -190,7 +190,7 @@ export default function Cards() {
             color="blue"
             variant="solid"
             size="large"
-            onClick={() => navigate("/order")}
+            onClick={() => (navigate("/order"), window.scrollTo(0, 0))}
           >
             Iniciar agora
           </Button>

@@ -34,7 +34,9 @@ function Banner() {
             color="blue"
             variant="solid"
             size="large"
-            onClick={() => navigate("/order-choose-plan")}
+            onClick={() => (
+              navigate("/order-choose-plan"), window.scrollTo(0, 0)
+            )}
           >
             Iniciar agora
           </Button>

@@ -88,7 +88,11 @@ export default function GetStartInfo() {
               type="primary"
               size="large"
               disabled={!companyName || !employeeCount || !region}
-              onClick={() => (navigate("/order-contact"), handleSubmit())}
+              onClick={() => (
+                navigate("/order-contact"),
+                handleSubmit(),
+                window.scrollTo(0, 0)
+              )}
             >
               Avançar
             </Button>

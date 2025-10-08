@@ -1,7 +1,7 @@
 export default function WorkspaceAgreement() {
   return (
     <>
-      <p>oi</p>
+      <p>teste</p>
     </>
   );
 }

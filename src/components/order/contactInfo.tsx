@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Input, Tooltip } from "antd";
+import { Button, Form, Input, Tooltip } from "antd";
 import { ChevronLeft, CircleQuestionMark } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,14 +7,32 @@ export default function ContactInfo() {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [email, setEmail] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
+  const [form] = Form.useForm();
+
+  const handleFormChange = () => {
+    const fieldsValue = form.getFieldsValue();
+    const hasAllFields =
+      fieldsValue.nome && fieldsValue.sobrenome && fieldsValue.email;
+
+    const fieldsError = form.getFieldsError();
+    const hasErrors = fieldsError.some(({ errors }) => errors.length > 0);
+
+    setIsFormValid(hasAllFields && !hasErrors);
+  };
 
   const handleSubmit = () => {
-    console.log({
-      nome,
-      sobrenome,
-      email,
-    });
+    form
+      .validateFields()
+      .then((values) => {
+        console.log(values);
+        navigate("/order-company");
+        window.scrollTo(0, 0);
+      })
+      .catch((errorInfo) => {
+        console.log("Validation failed:", errorInfo);
+      });
   };
 
   return (
@@ -59,53 +77,94 @@ export default function ContactInfo() {
               <CircleQuestionMark className="w-4 h-4 cursor-pointer inline" />
             </Tooltip>
           </p>
+          <Form
+            form={form}
+            onFinish={handleSubmit}
+            onFieldsChange={handleFormChange}
+          >
+            <Form.Item
+              className="mb-6"
+              name="nome"
+              rules={[
+                {
+                  max: 16,
+                  required: true,
+                  message: "Adicione um nome",
+                },
+                {
+                  pattern: /^[A-Za-zÀ-ÿ\s]+$/,
+                  message: "Apenas letras são permitidas",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                style={{
+                  fontSize: "16px",
 
-          <div className="mb-6">
-            <Input
-              placeholder="Nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              className="h-12 text-base border-gray-300 rounded-sm"
-              style={{
-                fontSize: "16px",
-                padding: "12px 16px",
-              }}
-            />
-          </div>
+                  height: "48px",
+                }}
+              />
+            </Form.Item>
 
-          <div className="mb-6">
-            <Input
-              placeholder="Sobrenome"
-              value={sobrenome}
-              onChange={(e) => setSobrenome(e.target.value)}
-              className="h-12 text-base border-gray-300 rounded-sm"
-              style={{
-                fontSize: "16px",
-                padding: "12px 16px",
-              }}
-            />
-          </div>
+            <Form.Item
+              className="mb-6"
+              name="sobrenome"
+              rules={[
+                {
+                  max: 16,
+                  required: true,
+                  message: "Adicione um sobrenome",
+                },
+                {
+                  pattern: /^[A-Za-zÀ-ÿ\s]+$/,
+                  message: "Apenas letras são permitidas",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Sobrenome"
+                value={sobrenome}
+                onChange={(e) => setSobrenome(e.target.value)}
+                style={{
+                  fontSize: "16px",
 
-          <div className="mb-8">
-            <Input
-              type="email"
-              placeholder="Endereço de e-mail atual"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="h-12 text-base border-gray-300 rounded-sm"
-              style={{
-                fontSize: "16px",
-                padding: "12px 16px",
-              }}
-            />
-          </div>
+                  height: "48px",
+                }}
+              />
+            </Form.Item>
+
+            <Form.Item
+              className="mb-6"
+              name="email"
+              rules={[
+                {
+                  pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Email inválido",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Endereço de e-mail atual"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  fontSize: "16px",
+
+                  height: "48px",
+                }}
+              />
+            </Form.Item>
+          </Form>
 
           <div className="">
             <Button
               type="primary"
               size="large"
-              disabled={!nome || !sobrenome || !email}
-              onClick={() => (navigate("/order-company"), handleSubmit())}
+              disabled={!isFormValid}
+              onClick={handleSubmit}
               className="px-8 self-start"
             >
               Avançar

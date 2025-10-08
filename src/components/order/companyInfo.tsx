@@ -1,20 +1,53 @@
 import { useState } from "react";
-import { Button, Input, Tooltip } from "antd";
+import { Button, Form, Input, Tooltip } from "antd";
 import { ChevronLeft, CircleQuestionMark } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
+import { PatternFormat, type NumberFormatValues } from "react-number-format";
+
+const CNPJInput = (
+  props: Omit<React.ComponentProps<typeof PatternFormat>, "format">
+) => (
+  <PatternFormat
+    {...props}
+    format="##.###.###/####-##"
+    customInput={Input}
+    placeholder="CNPJ"
+    size="large"
+    style={{ fontSize: "16px", height: "48px" }}
+  />
+);
 
 export default function CompanyInfo() {
   const [dominio, setDominio] = useState("");
   const [nomeEmpresa, setNomeEmpresa] = useState("");
   const [cnpj, setCnpj] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
   const navigate = useNavigate();
+  const [form] = Form.useForm();
+
+  const handleFormChange = () => {
+    const fieldsValue = form.getFieldsValue();
+    const hasAllFields =
+      fieldsValue.dominio && fieldsValue.nomeEmpresa && fieldsValue.cnpj;
+
+    const fieldsError = form.getFieldsError();
+    const hasErrors = fieldsError.some(({ errors }) => errors.length > 0);
+
+    setIsFormValid(hasAllFields && !hasErrors);
+  };
 
   const handleSubmit = () => {
-    console.log({
-      dominio,
-      nomeEmpresa,
-      cnpj,
-    });
+    form
+      .validateFields()
+      .then((values) => {
+        console.log(values);
+        navigate("/order-finish");
+        window.scrollTo(0, 0);
+      })
+      .catch((errorInfo) => {
+        console.log("Validation failed:", errorInfo);
+      });
   };
 
   return (
@@ -49,51 +82,69 @@ export default function CompanyInfo() {
             </Tooltip>
           </p>
 
-          <div className="mb-6">
-            <Input
-              placeholder="Nome do seu domínio"
-              value={dominio}
-              onChange={(e) => setDominio(e.target.value)}
-              className="h-12 text-base border-gray-300 rounded-sm"
-              style={{
-                fontSize: "16px",
-                padding: "12px 16px",
-              }}
-            />
-          </div>
+          <Form
+            form={form}
+            onFinish={handleSubmit}
+            onFieldsChange={handleFormChange}
+          >
+            <Form.Item
+              name="dominio"
+              rules={[
+                { required: true, message: "Por favor, insira o domínio" },
+              ]}
+            >
+              <Input
+                placeholder="Nome do seu domínio"
+                value={dominio}
+                onChange={(e) => setDominio(e.target.value)}
+                style={{
+                  fontSize: "16px",
 
-          <div className="mb-6">
-            <Input
-              placeholder="Nome da Empresa"
-              value={nomeEmpresa}
-              onChange={(e) => setNomeEmpresa(e.target.value)}
-              className="h-12 text-base border-gray-300 rounded-sm"
-              style={{
-                fontSize: "16px",
-                padding: "12px 16px",
-              }}
-            />
-          </div>
+                  height: "48px",
+                }}
+              />
+            </Form.Item>
 
-          <div className="mb-8">
-            <Input
-              placeholder="CNPJ"
-              value={cnpj}
-              onChange={(e) => setCnpj(e.target.value)}
-              className="h-12 text-base border-gray-300 rounded-sm"
-              style={{
-                fontSize: "16px",
-                padding: "12px 16px",
-              }}
-            />
-          </div>
+            <Form.Item
+              name="nomeEmpresa"
+              rules={[
+                {
+                  required: true,
+                  message: "Por favor, insira o nome da empresa",
+                },
+              ]}
+            >
+              <Input
+                placeholder="Nome da Empresa"
+                value={nomeEmpresa}
+                onChange={(e) => setNomeEmpresa(e.target.value)}
+                style={{
+                  fontSize: "16px",
+
+                  height: "48px",
+                }}
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="cnpj"
+              rules={[{ required: true, message: "Por favor, insira o CNPJ" }]}
+            >
+              <CNPJInput
+                value={cnpj}
+                onValueChange={(values: NumberFormatValues) =>
+                  setCnpj(values.value)
+                }
+              />
+            </Form.Item>
+          </Form>
 
           <Button
             className="self-start"
             type="primary"
             size="large"
-            disabled={!dominio || !nomeEmpresa || !cnpj}
-            onClick={() => (navigate("/order-finish"), handleSubmit())}
+            disabled={!isFormValid}
+            onClick={handleSubmit}
           >
             Avançar
           </Button>
